@@ -1,7 +1,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { PingResolver } from "./modules/resolvers/ping";
+import { ProductResolver } from "./modules/resolvers/";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 export async function startServer() {
@@ -9,7 +9,7 @@ export async function startServer() {
 
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PingResolver],
+      resolvers: [ProductResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({ req, res }),
