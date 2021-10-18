@@ -4,36 +4,32 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   CreateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { Variant } from "./Variant";
+import { Product } from "./Product";
 
-@ObjectType("Product")
+@ObjectType("Variant")
 @Entity()
-export class Product extends BaseEntity {
+export class Variant extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Field(() => String)
   @Column()
-  title!: string;
-
-  @Field(() => String)
-  @Column({ nullable: true })
-  imagen!: string;
+  key!: string;
 
   @Field(() => String)
   @Column()
-  description!: string;
+  value!: string;
 
   @Field(() => Number)
-  @Column({ default: 0 })
-  ratings!: number;
+  @Column()
+  price!: number;
 
-  @OneToMany(() => Variant, (variant) => variant.product)
-  variants!: Variant[];
+  @ManyToOne(() => Product, (product) => product.variants)
+  product!: Product;
 
   @Field(() => String)
   @CreateDateColumn({ type: "timestamp" })

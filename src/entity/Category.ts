@@ -7,11 +7,11 @@ import {
   OneToMany,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { Variant } from "./Variant";
+import { Subcategory } from "./Subcategory";
 
-@ObjectType("Product")
+@ObjectType("Category")
 @Entity()
-export class Product extends BaseEntity {
+export class Category extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
@@ -28,12 +28,8 @@ export class Product extends BaseEntity {
   @Column()
   description!: string;
 
-  @Field(() => Number)
-  @Column({ default: 0 })
-  ratings!: number;
-
-  @OneToMany(() => Variant, (variant) => variant.product)
-  variants!: Variant[];
+  @OneToMany(() => Subcategory, (subcategory) => subcategory.category)
+  subcategories!: Subcategory[];
 
   @Field(() => String)
   @CreateDateColumn({ type: "timestamp" })

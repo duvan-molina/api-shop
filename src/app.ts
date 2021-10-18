@@ -6,7 +6,6 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 
 export async function startServer() {
   const app = express();
-
   const server = new ApolloServer({
     schema: await buildSchema({
       resolvers: [ProductResolver],
@@ -18,7 +17,7 @@ export async function startServer() {
 
   await server.start();
 
-  server.applyMiddleware({ app, path: "/api/graphql" });
+  server.applyMiddleware({ app, path: "/api/shop/graphql" });
 
   return app;
 }

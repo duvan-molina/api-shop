@@ -1,8 +1,9 @@
 import { ObjectType, Field, ID } from "type-graphql";
+import VariantType from "./variant.type";
 
 @ObjectType("ProductType")
 export default class ProductType {
-  @Field((type) => ID)
+  @Field(() => ID)
   id!: string;
 
   @Field()
@@ -17,6 +18,9 @@ export default class ProductType {
   @Field((type) => Number)
   ratings!: number;
 
-  @Field(() => String)
+  @Field(() => [VariantType], { nullable: true })
+  variants!: VariantType[];
+
+  @Field(() => Date)
   creation_date!: string;
 }
