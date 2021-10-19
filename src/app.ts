@@ -1,7 +1,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { ProductResolver } from "./modules/resolvers/";
+import { ProductResolver } from "./modules/product/produt.resolver";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 export async function startServer() {

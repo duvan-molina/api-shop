@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import VariantType from "./variant.type";
+import VariantType from "../../shared/types/variant.type";
 
 @ObjectType("ProductType")
 export default class ProductType {
@@ -9,7 +9,7 @@ export default class ProductType {
   @Field()
   title!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   imagen!: string;
 
   @Field((type) => String)
