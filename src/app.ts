@@ -1,14 +1,15 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { ProductResolver } from "./modules/product/produt.resolver";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ProductResolver } from "./modules/product/produt.resolver";
+import { CategoryResolver } from "./modules/category/category.resolver";
 
 export async function startServer() {
   const app = express();
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [ProductResolver],
+      resolvers: [ProductResolver, CategoryResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({ req, res }),

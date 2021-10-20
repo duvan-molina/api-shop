@@ -25,7 +25,7 @@ export class Category extends BaseEntity {
   imagen!: string;
 
   @Field(() => String)
-  @Column()
+  @Column({ nullable: true })
   description!: string;
 
   @OneToMany(() => Subcategory, (subcategory) => subcategory.category)

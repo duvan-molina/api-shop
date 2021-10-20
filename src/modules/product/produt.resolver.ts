@@ -1,14 +1,33 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Product } from "../../entity/Product";
+import { filterItems } from "../../utilis/helpers/filter";
 import ProductInputType from "./types/product.input";
-import ProductType from "./types/product.type";
+import ProductType, { ProductResponse } from "./types/product.type";
 
 @Resolver()
 export class ProductResolver {
-  @Query(() => [ProductType])
-  async products(): Promise<ProductType[] | undefined> {
+  @Query(() => ProductResponse)
+  async products(
+    @Arg("limit", () => Int, { defaultValue: 10 }) limit: number,
+    @Arg("offset", () => Int, { defaultValue: 0 }) offset: number,
+    @Arg("text", { nullable: true }) text?: string
+  ): Promise<ProductResponse> {
     const response = await Product.find();
-    return response;
+
+    const filteredData = filterItems(response, limit, offset, text);
+
+    if (text && text !== "") {
+      return new ProductResponse({
+        total: response.length,
+        items: await filteredData.items.map((e: any) => e.item),
+        hasMore: false,
+      });
+    }
+
+    return new ProductResponse({
+      total: response.length,
+      ...filteredData,
+    });
   }
 
   @Query(() => ProductType)
