@@ -1,4 +1,5 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { getConnection } from "typeorm";
 import { Product } from "../../entity/Product";
 import { filterItems } from "../../utilis/helpers/filter";
 import ProductInputType from "./types/product.input";
@@ -48,6 +49,23 @@ export class ProductResolver {
       ratings: product.ratings,
     }).save();
     return response;
+  }
+
+  @Mutation(() => ProductType)
+  async editProduct(
+    @Arg("productId") productId: string,
+    @Arg("Fields") fields: ProductInputType
+  ): Promise<ProductType | undefined> {
+    const product = Product.findOne(productId);
+    if (fields) {
+      await getConnection()
+        .createQueryBuilder()
+        .update(Product)
+        .set(fields)
+        .where("id =:id", { id: productId })
+        .execute();
+    }
+    return product;
   }
 
   @Mutation(() => String, { description: "delete product" })
