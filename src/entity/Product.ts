@@ -29,11 +29,19 @@ export class Product extends BaseEntity {
   description!: string;
 
   @Field(() => Number)
+  @Column({ default: 1 })
+  quantity!: number;
+
+  @Field(() => Number)
   @Column({ default: 0 })
   ratings!: number;
 
   @OneToMany(() => Variant, (variant) => variant.product)
   variants!: Variant[];
+
+  @Field(() => Number)
+  @Column()
+  price!: number;
 
   @Field(() => String)
   @CreateDateColumn({ type: "timestamp" })
