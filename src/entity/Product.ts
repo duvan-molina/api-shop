@@ -32,9 +32,6 @@ export class Product extends BaseEntity {
   @Column({ default: 1 })
   quantity!: number;
 
-  @Field(() => Number)
-  @Column({ default: 0 })
-  ratings!: number;
 
   @OneToMany(() => Variant, (variant) => variant.product)
   variants!: Variant[];

@@ -16,9 +16,6 @@ export default class ProductType {
   @Field((type) => String)
   description!: string;
 
-  @Field((type) => Number)
-  ratings!: number;
-
   @Field(() => [VariantType], { nullable: true })
   variants!: VariantType[];
 

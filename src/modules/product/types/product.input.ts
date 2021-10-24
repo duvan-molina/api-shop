@@ -11,6 +11,4 @@ export default class ProductInputType {
   @Field((type) => String, { nullable: true })
   description!: string;
 
-  @Field(() => Number, { defaultValue: 0 })
-  ratings!: number;
 }

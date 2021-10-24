@@ -46,7 +46,6 @@ export class ProductResolver {
       title: product.title,
       description: product.description,
       imagen: product.imagen,
-      ratings: product.ratings,
     }).save();
     return response;
   }
